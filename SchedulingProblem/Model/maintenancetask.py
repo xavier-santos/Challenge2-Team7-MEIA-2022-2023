@@ -9,4 +9,4 @@ class MaintenanceTask:
         self.worker = worker.id
         self.start = start
         self.duration = engine.maintenance_time
-        self.end = start + timedelta(hours=3)
+        self.end = start + timedelta(hours=engine.maintenance_time)
