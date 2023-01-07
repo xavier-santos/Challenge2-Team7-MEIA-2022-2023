@@ -21,6 +21,10 @@ Genome = List[int]
 Population = List[Genome]
 
 
+def decide(probability):
+    return random() < probability
+
+
 def generate_genome(engines_count: int, workers_count: int) -> Genome:
     genome = [2] * (workers_count * engines_count)
     genome_range = range(0, len(genome))
@@ -31,7 +35,7 @@ def generate_genome(engines_count: int, workers_count: int) -> Genome:
 
     for i in genome_range:
         if genome[i] == 2:
-            decision = randint(0, 1)
+            decision = decide(0.01)
             if decision == 1:
                 genome = remove_assigned_engines(genome, i, engines_count, workers_count)
             genome[i] = decision
@@ -121,7 +125,7 @@ def calculate_fitness(genome: Genome, engines_list: [Engine], workers_list: [Wor
 
 # Transforms Genome into a list of WorkerDay
 def genome_to_worker_days(genome: Genome, engines_list: [Engine], workers_list: [Worker]) -> [WorkerDay]:
-    workers_days = [WorkerDay]
+    workers_days = []
     current_worker_index = 0
     for current_worker in workers_list:
         genome_engines = genome[current_worker_index:current_worker_index + len(engines_list)]
