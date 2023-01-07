@@ -1,12 +1,12 @@
 import json
 
-from Model.engine import Engine
-from Model.worker import Worker
+from model.engine import Engine
+from model.worker import Worker
 
 
-def import_engines():
+def import_engines() -> [Engine]:
     engines = []
-    file = open('../../Data/SchedulingData.json')
+    file = open('tests/SchedulingData.json')
     data = json.load(file)
     for engine in data["engines"]:
         engines.append(Engine(engine["id"], engine["ttf"], engine["maintenancetime"]))
@@ -14,16 +14,11 @@ def import_engines():
     return engines
 
 
-def import_workers():
+def import_workers() -> [Worker]:
     workers = []
-    file = open('../../Data/Workers.json')
+    file = open('tests/Workers.json')
     data = json.load(file)
     for worker in data["workers"]:
-        print(worker)
         workers.append(Worker(worker["id"], worker["starttime"], worker["endtime"]))
     file.close()
     return workers
-
-
-if __name__ == '__main__':
-    import_workers()

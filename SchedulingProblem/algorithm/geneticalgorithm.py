@@ -105,4 +105,6 @@ def run_evolution(
 
         population = next_generation
 
-    return population, i
+    best_fitness = population_fitness(population, fitness_func)
+
+    return population, best_fitness

@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-from Model.engine import Engine
-from Model.worker import Worker
+from model.engine import Engine
+from model.worker import Worker
 
 
 class MaintenanceTask:

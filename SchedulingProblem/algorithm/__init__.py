@@ -1,0 +1,1 @@
+from algorithm.geneticalgorithm import *
