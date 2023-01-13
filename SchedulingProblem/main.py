@@ -4,6 +4,15 @@ from algorithm import *
 from typing import List, Optional, Callable, Tuple
 from functools import partial
 
+#Week -> AssignedEngines, WorkerWeek[Nr_Of_Workers]
+#WorkerWeek -> Worker, Day[5]
+#Worker -> Start Time, End Time, Excluded_Weekdays (will be filled as none on day array)
+#Day -> Engine[] by priority, available_time (subtract when engine is placed)
+
+
+WHEN NOT ABLE RETURN FALSE!!!!!!
+
+
 # Worker work_period size is max bag weight
 # Maintenance time is weight
 # Genome is [ Worker1 - Machine1, Worker 1 - Machine2, Worker2 - Machine1, Worker2 - Machine2]
@@ -15,6 +24,15 @@ from functools import partial
 # validar nr de horas
 # testar algoritmo genetico
 # testar varios dias
+
+#horario
+#genoma worker engine-dia-hora [engine1-segunda-0, engine1-segunda-1 .... engine4-sexta-8]
+#NAO TER DIAS VAZIOS
+#Equilibrio horas por dia
+#DAR SEMPRE ESPAÇO DE 1 HORA ENTRE ENGINES
+#NÃO TER OVERLAPS DE HORAS
+#Engine menor ttf ser o dia da semana mais perto sempre
+
 from model.jsonimporter import import_engines, import_workers
 
 Genome = List[int]
@@ -124,18 +142,18 @@ def calculate_fitness(genome: Genome, engines_list: [Engine], workers_list: [Wor
 
 
 # Transforms Genome into a list of WorkerDay
-def genome_to_worker_days(genome: Genome, engines_list: [Engine], workers_list: [Worker]) -> [WorkerDay]:
+def genome_to_worker_days(genome: Genome, engines_list: [Engine], workers_list: [Worker]) -> [WorkerWeek]:
     workers_days = []
     current_worker_index = 0
     for current_worker in workers_list:
-        genome_engines = genome[current_worker_index:current_worker_index + len(engines_list)]
+        genome_engines = genome[current_worker_index:(current_worker_index + len(engines_list))]
         current_engine_index = 0
         assigned_engines = []
         for current_engine in engines_list:
             if genome_engines[current_engine_index] == 1:
                 assigned_engines.append(current_engine)
             current_engine_index += 1
-        worker_day = WorkerDay(current_worker, assigned_engines)
+        worker_day = WorkerWeek(current_worker, assigned_engines)
         if not worker_day.is_possible:
             return None
         workers_days.append(worker_day)
@@ -174,7 +192,8 @@ if __name__ == '__main__':
     evo, x = run_evolution(
         populate_func=partial(generate_population, size=10, engines_count=len(engines), workers_count=len(workers)),
         fitness_func=partial(calculate_fitness, engines_list=engines, workers_list=workers),
-        fitness_limit=0,
+        fitness_limit=10000000,
+        generation_limit=500,
         crossover_func=partial(crossover, engines_count=len(engines), workers_count=len(workers)),
         mutation_func=partial(mutation, engines_count=len(engines), workers_count=len(workers)))
-    print("end")
+    print(x)

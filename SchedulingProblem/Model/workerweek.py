@@ -1,11 +1,11 @@
 from model import Worker, Engine
 
 
-class WorkerDay:
+class WorkerWeek:
     def __init__(self, worker: Worker, engines: [Engine]):
         self.worker = worker
         self.engines = engines
-        self.work_time = worker.end_time - worker.start_time
+        self.work_time = worker.work_hours
         self.maintenance_time = 0
         for engine in engines:
             self.maintenance_time += engine.maintenance_time

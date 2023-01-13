@@ -81,7 +81,7 @@ def run_evolution(
         crossover_func: CrossoverFunc = single_point_crossover,
         mutation_func: MutationFunc = mutation,
         generation_limit: int = 100,
-        printer: Optional[PrinterFunc] = None) \
+        printer: Optional[PrinterFunc] = print_stats) \
         -> Tuple[Population, int]:
     population = populate_func()
 

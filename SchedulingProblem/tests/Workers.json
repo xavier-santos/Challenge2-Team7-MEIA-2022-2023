@@ -2,22 +2,26 @@
         {
             "id": "1",
             "starttime": 9,
-            "endtime": 17
+            "endtime": 17,
+            "workhours": 40
         },
         {
             "id": "2",
             "starttime": 7,
-            "endtime": 15
+            "endtime": 15,
+            "workhours": 40
         },
         {
             "id": "3",
             "starttime": 12,
-            "endtime": 20
+            "endtime": 20,
+            "workhours": 40
         },
         {
             "id": "4",
             "starttime": 15,
-            "endtime": 23
+            "endtime": 23,
+            "workhours": 40
         }
 ]
 }
