@@ -10,9 +10,6 @@ from functools import partial
 #Day -> Engine[] by priority, available_time (subtract when engine is placed)
 
 
-WHEN NOT ABLE RETURN FALSE!!!!!!
-
-
 # Worker work_period size is max bag weight
 # Maintenance time is weight
 # Genome is [ Worker1 - Machine1, Worker 1 - Machine2, Worker2 - Machine1, Worker2 - Machine2]

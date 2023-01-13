@@ -1,4 +1,6 @@
 import json
+
+import json_exporter
 from Models.worker import Worker
 from Models.engine import Engine
 from Algorithms import GeneticAlgorithm
@@ -18,3 +20,5 @@ with open('Data/Engines.json') as json_file:
         engines.append(Engine(p['id'], p['ttf'], p['maintenance_time']))
 
 pop, best = GeneticAlgorithm.run_evolution(workers, engines)
+
+json_exporter.export_week(pop[0], "test.json")

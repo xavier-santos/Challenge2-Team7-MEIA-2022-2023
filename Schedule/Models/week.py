@@ -36,12 +36,16 @@ class Week:
         return self.workers
 
     def add_engine(self, engine, day, worker) -> bool:
-        if (engine not in self.assigned_engine_list) & engine.maintenance_time <= self.unassigned_time:
+
+        if (engine in self.assigned_engine_list) | engine.maintenance_time > self.unassigned_time:
+            return False
+
+        if self.workers_weeks_list[self.get_worker_index(worker)].add_engine(engine, day):
             self.unassigned_time -= engine.maintenance_time
             self.assigned_time += engine.maintenance_time
             self.assigned_engine_list.append(engine)
-            self.workers_weeks_list[self.get_worker_index(worker)].add_engine(engine, day)
             return True
+
         return False
 
     def get_worker_index(self, worker):
@@ -58,6 +62,6 @@ class Week:
 
     def has_empty_days(self):
         for worker_week in self.workers_weeks_list:
-            if worker_week.is_empty_days():
+            if worker_week.has_empty_days():
                 return True
         return False

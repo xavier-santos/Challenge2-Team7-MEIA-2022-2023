@@ -32,7 +32,7 @@ class WorkerWeek:
         self.day_list = []
         for i in week_days_dict:
             if i not in self.worker.excluded_weekdays:
-                self.day_list.append(Day(8, 0, []))
+                self.day_list.append(Day(self.work_hours, 0, []))
             else:
                 self.day_list.append(Day(0, 0, []))
         
@@ -55,11 +55,12 @@ class WorkerWeek:
         return self.worker
 
     def add_engine(self, engine, day) -> bool:
-        if (engine not in self.assigned_engine_list) & engine.maintenance_time <= self.unassigned_time:
+        if (engine in self.assigned_engine_list) | engine.maintenance_time > self.unassigned_time:
+            return False
+        if self.day_list[day].add_engine(engine):
             self.unassigned_time -= engine.maintenance_time
             self.assigned_time += engine.maintenance_time
             self.assigned_engine_list.append(engine)
-            self.day_list[day].add_engine(engine)
             return True
         return False
 
@@ -78,8 +79,8 @@ class WorkerWeek:
             rank += day.get_rank() * (7-self.day_list.index(day))
         return rank
 
-    def is_empty_days(self):
+    def has_empty_days(self):
         for day in self.day_list:
-            if day.get_assigned_engine_list().__len__() <= 0:
+            if day.get_assigned_engine_list().__len__() <= 0 & day.assigned_time != day.unassigned_time:
                 return True
         return False

@@ -17,12 +17,12 @@ class Day:
         return self.assigned_engine_list
 
     def add_engine(self, engine) -> bool:
-        if (engine not in self.assigned_engine_list) & engine.maintenance_time <= self.unassigned_time:
-            self.unassigned_time -= engine.maintenance_time
-            self.assigned_time += engine.maintenance_time
-            self.assigned_engine_list.append(engine)
-            return True
-        return False
+        if (engine in self.assigned_engine_list) | engine.maintenance_time > self.unassigned_time:
+            return False
+        self.unassigned_time -= engine.maintenance_time
+        self.assigned_time += engine.maintenance_time
+        self.assigned_engine_list.append(engine)
+        return True
 
     def remove_engine(self, engine):
         self.assigned_engine_list.remove(engine)
