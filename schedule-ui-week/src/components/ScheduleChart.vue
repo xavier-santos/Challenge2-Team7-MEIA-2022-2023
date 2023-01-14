@@ -12,6 +12,9 @@
       color-scheme="vue"
       grid
     >
+      <template #bar-tooltip="{ bar }">
+        {{ bar.startHour }}-{{ bar.endHour }}: {{bar.ganttBarConfig.label}}
+      </template>
       <g-gantt-row
         v-for="row in weekday.chartData"
         :key="row.id"
@@ -84,11 +87,17 @@ export default {
           var start = chartStart.clone().add(task.start_time, "hours");
 
           var taskStart = start.format("YYYY-MM-DD HH:mm");
+          var taskStartHour = start.format("HH:mm");
 
           var taskEnd = start
             .clone()
             .add(task.maintenance_time, "hours")
             .format("YYYY-MM-DD HH:mm");
+
+          var taskEndHour = start
+            .clone()
+            .add(task.maintenance_time, "hours")
+            .format("HH:mm");
 
           if (taskStart < chartDates.chartStart) {
             chartDates.chartStart = start
@@ -106,6 +115,8 @@ export default {
           barList.push({
             myBeginDate: taskStart,
             myEndDate: taskEnd,
+            startHour: taskStartHour,
+            endHour: taskEndHour,
             worker: i,
             ganttBarConfig: {
               label: `Engine ${task.engine_id.toString()}`,
@@ -153,7 +164,7 @@ export default {
     };
 
     const getChartEnd = (i) => {
-      var end = moment().add(1, "week").day(i +1).startOf("day");
+      var end = moment().add(1, "week").day(i +1).endOf("day");
 
       chartDates.chartStart = end.format("YYYY-MM-DD HH:mm");
 
