@@ -72,7 +72,7 @@ export default {
     const buildChart = (scheduleInput) => {
       const colors = ["#208AAE", "#9BC53D", "#C3423F"];
 
-
+      scheduleData.splice(0);
 
       scheduleInput.week_plan.forEach((weekday, i) => {
 
