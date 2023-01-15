@@ -25,7 +25,7 @@ def bytes_to_week(possible, workers, engines):
             for z in range(0, len(engines)):
                 if possible[decision] == 1:
                     week.add_engine(engines[z], y, workers[x])
-                decision +=1
+                decision += 1
     return week
 
 

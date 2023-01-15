@@ -3,7 +3,7 @@ import time
 import json_exporter
 from Models.worker import Worker
 from Models.engine import Engine
-from Algorithms import GeneticAlgorithm, BruteForce
+from Algorithms import GeneticAlgorithm
 
 # Import workers from json file
 workers = []
@@ -25,9 +25,5 @@ time_ga = time.time() - start_time
 
 json_exporter.export_week(pop_ga[0], "test.json")
 
-start_time = time.time()
-pop_bf, best_bf = BruteForce.bruteforce(workers, engines)
-time_bf = time.time() - start_time
-
-print(f"Best Brute Force: {best_bf} \nTime Brute Force: {time_bf} \nBest Genetic Algorithm: {best_ga}"
+print(f"Best Genetic Algorithm: {best_ga}"
       f"\nTime Genetic Algorithm: {time_ga}")

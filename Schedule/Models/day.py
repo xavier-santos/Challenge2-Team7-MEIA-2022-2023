@@ -22,6 +22,7 @@ class Day:
         self.unassigned_time -= engine.maintenance_time
         self.assigned_time += engine.maintenance_time
         self.assigned_engine_list.append(engine)
+        self.order_engine_list()
         return True
 
     def remove_engine(self, engine):
